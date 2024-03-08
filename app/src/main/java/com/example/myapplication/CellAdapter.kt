@@ -3,24 +3,21 @@ package com.example.myapplication
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ToDoCellAdapter(_todoCells: List<ToDoCell>):
-    RecyclerView.Adapter<ToDoCellAdapter.TodoCellsViewHolder>() {
+class CellAdapter(_todoCells: List<Cell>):
+    RecyclerView.Adapter<CellAdapter.TodoCellsViewHolder>() {
 
-    private var todoCells: List<ToDoCell> = _todoCells
+    private var todoCells: List<Cell> = _todoCells
 
 
     class TodoCellsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val todoText: TextView = itemView.findViewById(R.id.todoTextView)
-        private val isDone: RadioButton = itemView.findViewById(R.id.rbIsDone)
-        private val doUntilDate: TextView = itemView.findViewById(R.id.tvCreationDate)
-        fun onBind(todoItem: ToDoCell) {
-            todoText.text = todoItem.todoText
-            isDone.isChecked = todoItem.isDone
-            doUntilDate.text = todoItem.doUntilDate
+        private val cellTitle: TextView = itemView.findViewById(R.id.todoTextView)
+        private val descriptionOfCell: TextView = itemView.findViewById(R.id.tvCreationDate)
+        fun onBind(todoItem: Cell) {
+            cellTitle.text = todoItem.title
+            descriptionOfCell.text = todoItem.description
         }
     }
 
