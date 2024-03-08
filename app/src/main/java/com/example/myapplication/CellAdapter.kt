@@ -13,11 +13,13 @@ class CellAdapter(_todoCells: List<Cell>):
 
 
     class TodoCellsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val cellTitle: TextView = itemView.findViewById(R.id.todoTextView)
-        private val descriptionOfCell: TextView = itemView.findViewById(R.id.tvCreationDate)
-        fun onBind(todoItem: Cell) {
-            cellTitle.text = todoItem.title
-            descriptionOfCell.text = todoItem.description
+        private val cellTitle: TextView = itemView.findViewById(R.id.tvName)
+        private val descriptionOfCell: TextView = itemView.findViewById(R.id.tvDescription)
+        private val cellThumbnail: TextView = itemView.findViewById(R.id.tvThumbnail)
+        fun onBind(cellItem: Cell) {
+            cellTitle.text = cellItem.title
+            descriptionOfCell.text = cellItem.description
+            cellThumbnail.text = cellItem.thumbnail
         }
     }
 

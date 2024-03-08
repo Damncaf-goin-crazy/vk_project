@@ -5,13 +5,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitBuilder {
 
-    private fun getRetrofit(): Retrofit {
-        return Retrofit.Builder()
+    val apiService: ApiService by lazy {
+        Retrofit.Builder()
             .baseUrl("https://dummyjson.com")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+            .create(ApiService::class.java)
     }
 
 
-    val apiService: ApiService = getRetrofit().create(ApiService::class.java)
 }
