@@ -1,15 +1,15 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class CellAdapter(_todoCells: List<Cell>):
-    RecyclerView.Adapter<CellAdapter.TodoCellsViewHolder>() {
-
-    private var todoCells: List<Cell> = _todoCells
+class CellAdapter : ListAdapter<Cell, CellAdapter.TodoCellsViewHolder>(CellDiffCallBack()) {
 
 
     class TodoCellsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -20,28 +20,25 @@ class CellAdapter(_todoCells: List<Cell>):
             cellTitle.text = cellItem.title
             descriptionOfCell.text = cellItem.description
             cellThumbnail.text = cellItem.thumbnail
+            //Glide
         }
     }
 
-
-    //возвращает виевхолдер нашего типа: TodoCellsViewHolder
-    /* с помощью обЪекта LayoutInflater инфлейтит xml код в представление типа view
-    * мы из нашего to_do_cell_layout создаем вьюшку которую можем использовать в коде
-    * и она передается в конструктор TodoCellsViewHolder и он возвращается в методе
-    *
-    * атачтурут false */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoCellsViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.to_do_cell_layout, parent, false)
-        return TodoCellsViewHolder(view)    }
-
-    //возвращает размер листа с тудушшками (датой)
-    override fun getItemCount() = todoCells.size
-
-    //в этом методе мы должны либо задать либо обновить данные для определенной вью
-// получаем на вход наш вьюхолдер и позицию элемента в нем, и с помощью onBind
-// добавляем элемент на позицию
-    override fun onBindViewHolder(holder: TodoCellsViewHolder, position: Int) {
-        holder.onBind(todoCells[position])
+        return TodoCellsViewHolder(view)
     }
+
+    override fun onBindViewHolder(holder: TodoCellsViewHolder, position: Int) {
+        holder.onBind(getItem(position))
+    }
+}
+
+class CellDiffCallBack : DiffUtil.ItemCallback<Cell>() {
+    override fun areItemsTheSame(oldItem: Cell, newItem: Cell): Boolean =
+        oldItem.id == newItem.id
+
+    override fun areContentsTheSame(oldItem: Cell, newItem: Cell): Boolean =
+        oldItem == newItem
 }
