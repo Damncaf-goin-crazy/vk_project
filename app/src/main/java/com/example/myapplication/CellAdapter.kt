@@ -1,13 +1,15 @@
 package com.example.myapplication
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 class CellAdapter : ListAdapter<Cell, CellAdapter.TodoCellsViewHolder>(CellDiffCallBack()) {
 
@@ -15,12 +17,16 @@ class CellAdapter : ListAdapter<Cell, CellAdapter.TodoCellsViewHolder>(CellDiffC
     class TodoCellsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val cellTitle: TextView = itemView.findViewById(R.id.tvName)
         private val descriptionOfCell: TextView = itemView.findViewById(R.id.tvDescription)
-        private val cellThumbnail: TextView = itemView.findViewById(R.id.tvThumbnail)
+        private val cellThumbnail: AppCompatImageView = itemView.findViewById(R.id.ivThumbnail)
         fun onBind(cellItem: Cell) {
             cellTitle.text = cellItem.title
             descriptionOfCell.text = cellItem.description
-            cellThumbnail.text = cellItem.thumbnail
             //Glide
+            Glide
+                .with(itemView.context)
+                .load(cellItem.thumbnail)
+                .apply(RequestOptions.circleCropTransform())
+                .into(cellThumbnail)
         }
     }
 

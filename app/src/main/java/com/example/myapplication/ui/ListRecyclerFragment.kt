@@ -1,7 +1,6 @@
 package com.example.myapplication.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,21 +44,19 @@ class ListRecyclerFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.uiState.collect{ state ->
-                Log.d("121212", state.toString())
+            viewModel.uiState.collect { state ->
                 when (state) {
                     is UiState.Content -> {
-                        binding.rvTodos.alpha = 1f
-                        Log.d("121212", state.list.map { it.id }.toString())
+                        //binding.rvTodos.alpha = 1f
                         rvAdapter.submitList(state.list)
                     }
 
                     is UiState.Error -> {
-                        binding.rvTodos.alpha = 1f
+                        //binding.rvTodos.alpha = 1f
                     }
 
                     UiState.Loading -> {
-                        binding.rvTodos.alpha = 0.4f
+                        //binding.rvTodos.alpha = 0.4f
                     }
                 }
             }
