@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.myapplication.Cell
-import com.example.myapplication.EachCellFragmentArgs
+import com.example.myapplication.ui.EachCellFragmentArgs
 import com.example.myapplication.databinding.FragmentEachCellBinding
 import com.google.gson.Gson
 
