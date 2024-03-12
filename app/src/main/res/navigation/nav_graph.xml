@@ -9,5 +9,27 @@
         android:id="@+id/listRecyclerFragment"
         android:name="com.example.myapplication.ui.ListRecyclerFragment"
         android:label="fragment_list_recycler"
-        tools:layout="@layout/fragment_list_recycler" />
+        tools:layout="@layout/fragment_list_recycler">
+        <action
+            android:id="@+id/actionToCell"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/slide_left"
+            app:popExitAnim="@anim/slide_right"
+            app:popEnterAnim="@anim/slide_right"
+            app:destination="@id/eachCellFragment">
+            <argument
+                android:name="cell"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/eachCellFragment"
+        android:name="com.example.myapplication.ui.EachCellFragment"
+        android:label="EachCellFragment">
+        <argument
+            android:name="cell"
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
 </navigation>

@@ -11,14 +11,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-class CellAdapter : ListAdapter<Cell, CellAdapter.TodoCellsViewHolder>(CellDiffCallBack()) {
-
+class CellAdapter(private val onItemClicked: (Cell) -> Unit) :
+    ListAdapter<Cell, CellAdapter.TodoCellsViewHolder>(CellDiffCallBack()) {
 
     class TodoCellsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val cellTitle: TextView = itemView.findViewById(R.id.tvName)
         private val descriptionOfCell: TextView = itemView.findViewById(R.id.tvDescription)
         private val cellThumbnail: AppCompatImageView = itemView.findViewById(R.id.ivThumbnail)
-        fun onBind(cellItem: Cell) {
+        fun onBind(cellItem: Cell, onItemClicked: (Cell) -> Unit) {
+            itemView.setOnClickListener {
+                onItemClicked(cellItem)
+            }
+
             cellTitle.text = cellItem.title
             descriptionOfCell.text = cellItem.description
             //Glide
@@ -32,12 +36,12 @@ class CellAdapter : ListAdapter<Cell, CellAdapter.TodoCellsViewHolder>(CellDiffC
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoCellsViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.to_do_cell_layout, parent, false)
+            .inflate(R.layout.cell_layout, parent, false)
         return TodoCellsViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: TodoCellsViewHolder, position: Int) {
-        holder.onBind(getItem(position))
+        holder.onBind(getItem(position), onItemClicked)
     }
 }
 
